@@ -75,38 +75,38 @@ This platform provides:
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │                      DATA SOURCES                                │
-│  Social Trading Platforms (Public Trader Profiles)              │
+│  Social Trading Platforms (Public Trader Profiles)               │
 └────────────────────────┬─────────────────────────────────────────┘
                          │
                          ▼
 ┌──────────────────────────────────────────────────────────────────┐
 │                   BRONZE LAYER (Raw Data)                        │
-│  ┌────────────────────────────────────────────────────────────┐ │
-│  │  bronze_trader_profiles                                     │ │
-│  │  - Raw HTML responses (immutable)                          │ │
-│  │  - HTTP status codes                                       │ │
-│  │  - Ingestion timestamps                                    │ │
-│  │  - Full reprocessability                                   │ │
-│  └────────────────────────────────────────────────────────────┘ │
+│  ┌────────────────────────────────────────────────────────────┐  │
+│  │  bronze_trader_profiles                                    │  │
+│  │  - Raw HTML responses (immutable)                          │  │
+│  │  - HTTP status codes                                       │  │
+│  │  - Ingestion timestamps                                    │  │
+│  │  - Full reprocessability                                   │  │
+│  └────────────────────────────────────────────────────────────┘  │
 └────────────────────────┬─────────────────────────────────────────┘
                          │
                          ▼
 ┌──────────────────────────────────────────────────────────────────┐
 │                  SILVER LAYER (Curated Data)                     │
-│  ┌─────────────────────────────────────────────────────────┐   │
-│  │  silver_trader_metrics                                   │   │
-│  │  - Parsed risk metrics (Sharpe, Sortino, Calmar, Beta) │   │
-│  │  - Returns (monthly, YTD, annual)                       │   │
-│  │  - Trader descriptions                                   │   │
-│  │  - Data quality validated                                │   │
-│  └─────────────────────────────────────────────────────────┘   │
+│  ┌─────────────────────────────────────────────────────────┐     │
+│  │  silver_trader_metrics                                  │     │
+│  │  - Parsed risk metrics (Sharpe, Sortino, Calmar, Beta)  │     │
+│  │  - Returns (monthly, YTD, annual)                       │     │
+│  │  - Trader descriptions                                  │     │
+│  │  - Data quality validated                               │     │
+│  └─────────────────────────────────────────────────────────┘     │
 │                                                                  │
-│  ┌─────────────────────────────────────────────────────────┐   │
-│  │  silver_portfolio_composition                            │   │
-│  │  - Sector allocations                                    │   │
-│  │  - Exchange exposure                                     │   │
-│  │  - Geographic diversification                            │   │
-│  └─────────────────────────────────────────────────────────┘   │
+│  ┌─────────────────────────────────────────────────────────┐     │
+│  │  silver_portfolio_composition                           │     │
+│  │  - Sector allocations                                   │     │
+│  │  - Exchange exposure                                    │     │
+│  │  - Geographic diversification                           │     │
+│  └─────────────────────────────────────────────────────────┘     │
 └────────────────────────┬─────────────────────────────────────────┘
                          │
                          ▼
