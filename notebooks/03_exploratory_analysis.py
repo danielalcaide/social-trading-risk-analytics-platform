@@ -26,6 +26,7 @@
 # COMMAND ----------
 
 # MAGIC %pip install python-dotenv
+# MAGIC %pip install adjustText
 # MAGIC %restart_python
 
 # COMMAND ----------
@@ -256,7 +257,7 @@ risk_metrics_summary = df_top25[['sharpe_ratio', 'sortino_ratio', 'calmar_ratio'
 
 print("Risk Metrics Summary - Top 25% Performers:")
 print("="*70)
-display(risk_metrics_summary)
+print(risk_metrics_summary)
 
 # COMMAND ----------
 
@@ -267,8 +268,8 @@ display(risk_metrics_summary)
 # MAGIC drawdown resilience (Calmar).
 # MAGIC
 # MAGIC **Selection Criteria:**
-# MAGIC - Sortino Ratio > 0.7 (manages downside volatility well)
-# MAGIC - Calmar Ratio > 0.4 (survives major drawdowns)
+# MAGIC - Sortino Ratio > 7 (manages downside volatility well)
+# MAGIC - Calmar Ratio > 7 (survives major drawdowns)
 # MAGIC
 # MAGIC **Visualization Strategy:**
 # MAGIC - Scatter plot: X-axis = Sortino, Y-axis = Calmar
@@ -277,6 +278,7 @@ display(risk_metrics_summary)
 
 # COMMAND ----------
 
+from adjustText import adjust_text
 # Scatter plot: Sortino vs Calmar
 plt.figure(figsize=(14, 8))
 scatter = plt.scatter(
@@ -293,6 +295,33 @@ scatter = plt.scatter(
 # Add threshold lines for elite criteria
 plt.axvline(x=7, color='red', linestyle='--', alpha=0.5, label='Sortino > 7 (Elite)')
 plt.axhline(y=7, color='blue', linestyle='--', alpha=0.5, label='Calmar > 7 (Elite)')
+
+# List to hold all the text objects created for adjustment
+texts = []
+
+# Annotate trader names for elite subset
+elite_subset = df_top25[(df_top25['sortino_ratio'] > 6.5) & (df_top25['calmar_ratio'] > 6.5)]
+
+# Create the text objects and append them to the 'texts' list
+for _, row in elite_subset.iterrows():
+    # Note: Use plt.text() as before, but store the returned object
+    text_obj = plt.text(
+        row['sortino_ratio'], 
+        row['calmar_ratio'], 
+        str(row['user']),
+        fontsize=10,
+        color='black',
+        ha='center',
+        va='bottom'
+    )
+    texts.append(text_obj)
+
+# Call adjust_text to intelligently move the labels
+# arrowprops draws lines from the label to the original point
+adjust_text(
+    texts, 
+    arrowprops=dict(arrowstyle="-", color='k', lw=0.5),
+)
 
 # Add colorbar for return magnitude
 cbar = plt.colorbar(scatter)
